@@ -8,7 +8,7 @@ import pandas as pd
 
 
 class Accounts:
-    db_filename = 'app.DB' #path to your database
+    db_filename = 'C:/Users/lenovo/Desktop/Space Invaders GAME/projects/app/App.db'
     
     def __init__(self,root):
         self.root = root
@@ -229,10 +229,11 @@ class Accounts:
                 self.tree.insert('',0,text = row[1], values=(row[2],row[3],row[0],row[1]))
                 
     def export_to_exel(self,name):
-        conn = sqlite3.connect('App.db' ) #path to your database
+        #filepath = "C:/Users/lenovo/Desktop/Space Invaders GAME/projects/{}.xlsx".format(name)
+        conn = sqlite3.connect('C:/Users/lenovo/Desktop/Space Invaders GAME/projects/app/App.db')
         
         df = pd.read_sql("SELECT * FROM {}".format(name),conn)
-        writer = pd.ExcelWriter("{}.xlsx".format(name)) #path where u want to create your excel file
+        writer = pd.ExcelWriter("C:/Users/lenovo/Documents/app_data/{}.xlsx".format(name))
         
         df.to_excel(writer)
         
