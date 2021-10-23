@@ -117,6 +117,8 @@ class Accounts:
         self.root.destroy()
         self.window = Tk()
         self.window.title('{}'.format(name))
+        self.window.geometry("650x450")
+        self.window.resizable(width=False, height=False)
         
         self.tree = ttk.Treeview(height=10 , columns=(1,2),style="Treeview")
         labelframe = LabelFrame(self.window, text='{}'.format(name), bg="sky blue", font="helvetica 10")
@@ -154,6 +156,9 @@ class Accounts:
         Button(text='Delete Selected',command=lambda: self.delete_data(name.replace(" ","_")),bg='red',fg='white').grid(row=8,column=0,sticky=W,pady=10,padx=10)
         Button(text='Edit selected',command=lambda: self.open_modify(name.replace(" ","_")),bg='purple',fg='white').grid(row=8,column=1,sticky=W)
         Button(text='Exoprt to Excel',command=lambda: self.export_to_exel(name.replace(" ","_")),bg='blue',fg='white').grid(row=9,column=1,sticky=W)
+        Button(text='Back',command=self.call_main,bg='orange',fg='Black').grid(row=9,column=0,sticky=W,pady=10,padx=10)
+
+        
     
     def open_modify(self,name):
         index = self.tree.item(self.tree.selection())['values'][2]
@@ -179,6 +184,8 @@ class Accounts:
 
         self.window.mainloop()
 
+        
+        
     def update_contacts(self, d, date,c,index,name):
         query = 'UPDATE {0} SET credit = ? , debit = ? , date = ? where no = {1}'.format(name,index)
         parameters = (c, d, date)
@@ -248,7 +255,16 @@ class Accounts:
         for row in contact_entries:
                 self.tree.insert('',0,text = row[1], values=(row[2],row[3],row[0],row[1]))
             
-                
+    def call_main(self):
+        self.window.destroy()
+
+        root =Tk()
+        root.title('Your Accountant')
+        application = Accounts(root)
+        root.geometry("350x450")
+        root.resizable(width=False, height=False)
+        
+        root.mainloop()
         
         
             
