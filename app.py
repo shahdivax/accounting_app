@@ -4,7 +4,8 @@ from tkinter import ttk
 import sqlite3
 import pandas as pd
 
-
+import ctypes
+ctypes.windll.user32.ShowWindow( ctypes.windll.kernel32.GetConsoleWindow(), 0 )
 
 
 class Accounts:
@@ -36,7 +37,7 @@ class Accounts:
         self.create_button_buttons()
 
     def create_button_buttons(self):
-        Button(text='Delet Selected',command=self.on_delet_selected_button_clicked,bg='red',fg='white').grid(row=8,column=0,sticky=W,pady=10)
+        Button(text='Delet Selected',command=self.on_delet_selected_button_clicked,bg='red',fg='white').grid(row=8,column=0,sticky=W,pady=10,padx=10)
         Button(text='Edit selected',command=self.on_modify_selected_button_clicked,bg='purple',fg='white').grid(row=8,column=1,sticky=W)
 
             
@@ -119,7 +120,7 @@ class Accounts:
         self.window.title('{}'.format(name))
         self.window.geometry("650x450")
         self.window.resizable(width=False, height=False)
-        
+    
         self.tree = ttk.Treeview(height=10 , columns=(1,2),style="Treeview")
         labelframe = LabelFrame(self.window, text='{}'.format(name), bg="sky blue", font="helvetica 10")
         labelframe.grid(row=0, column=0, padx=8, pady=8, sticky='ew')
@@ -246,6 +247,9 @@ class Accounts:
         df.to_excel(writer)
         
         writer.save()
+        
+        self.message = Label(text="File Created",fg='red')
+        self.message.grid(row=3,column=0)
 
         items = self.tree.get_children()
         for item in items:
@@ -257,13 +261,10 @@ class Accounts:
             
     def call_main(self):
         self.window.destroy()
-
         root =Tk()
         root.title('Your Accountant')
-        application = Accounts(root)
-        root.geometry("350x450")
-        root.resizable(width=False, height=False)
         
+        application = Accounts(root)
         root.mainloop()
         
         
@@ -275,7 +276,7 @@ if __name__ == '__main__':
     root =Tk()
     root.title('Your Accountant')
     application = Accounts(root)
-    root.geometry("350x450")
+    root.geometry("350x400")
     root.resizable(width=False, height=False)
     root.mainloop()
      
