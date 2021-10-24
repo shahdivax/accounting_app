@@ -166,24 +166,24 @@ class Accounts:
         credit = self.tree.item(self.tree.selection())['values'][3]
         Date = self.tree.item(self.tree.selection())['values'][1]
         Debit = self.tree.item(self.tree.selection())['values'][0]
-        self.window = Toplevel()
-        self.window.title('Update Contact')
-        Label(self.window,text='Credit:').grid(row=0,column=1)
-        c = Entry(self.window, textvariable=StringVar(self.window, value=credit))
+        self.win = Toplevel()
+        self.win.title('Update Contact')
+        Label(self.win,text='Credit:').grid(row=0,column=1)
+        c = Entry(self.win, textvariable=StringVar(self.win, value=credit))
         c.grid(row=0, column=2)
-        Label(self.window, text='Date:').grid(row=1, column=1)
-        date = Entry(self.window, textvariable=StringVar(self.window, value=Date))
+        Label(self.win, text='Date:').grid(row=1, column=1)
+        date = Entry(self.win, textvariable=StringVar(self.win, value=Date))
         date.grid(row=1, column=2)
-        Label(self.window, text='Debit:').grid(row=2, column=1)
-        d = Entry(self.window,textvariable=StringVar(self.window, value=Debit))
+        Label(self.win, text='Debit:').grid(row=2, column=1)
+        d = Entry(self.win,textvariable=StringVar(self.win, value=Debit))
         d.grid(row=2, column=2)
 
 
-        Button(self.window, text='Update Contact', command=lambda: self.update_contacts(
+        Button(self.win, text='Update Contact', command=lambda: self.update_contacts(
             d.get(),date.get(), c.get(),index,name)).grid(row=3, column=2, sticky=E)
         
 
-        self.window.mainloop()
+        self.win.mainloop()
 
         
         
@@ -191,7 +191,7 @@ class Accounts:
         query = 'UPDATE {0} SET credit = ? , debit = ? , date = ? where no = {1}'.format(name,index)
         parameters = (c, d, date)
         self.execute_db_query(query, parameters)
-        self.window.destroy()
+        self.win.destroy()
         items = self.tree.get_children()
         for item in items:
             self.tree.delete(item)
