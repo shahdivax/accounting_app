@@ -167,7 +167,7 @@ class Accounts:
         Date = self.tree.item(self.tree.selection())['values'][1]
         Debit = self.tree.item(self.tree.selection())['values'][0]
         self.win = Toplevel()
-        self.win.title('Update Contact')
+        self.win.title('Update Data')
         Label(self.win,text='Credit:').grid(row=0,column=1)
         c = Entry(self.win, textvariable=StringVar(self.win, value=credit))
         c.grid(row=0, column=2)
